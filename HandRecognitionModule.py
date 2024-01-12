@@ -12,7 +12,7 @@ class HandRecognition:
     
     def detect_hand(self, frame):
         """
-        Detects the index finger position from the camera feed.
+        Detects the Index finger position from the camera feed.
         """
         rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         results = self.hands.process(rgb_frame)
