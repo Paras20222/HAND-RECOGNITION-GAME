@@ -16,7 +16,7 @@ cap = cv2.VideoCapture(0)
 while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
-        break  # Exit if no frame is captured
+        break  # Exit if no frame captured
 
     # Detect hand position
     hand_position = hand_recognition.detect_hand(frame)
