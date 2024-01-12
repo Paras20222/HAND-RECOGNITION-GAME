@@ -1,65 +1,60 @@
-**Hand Gesture Recognition Game**
+# Hand-Controlled Flappy Bird Game
 
-*Overview*
+A fun and interactive version of Flappy Bird, controlled through hand gestures using MediaPipe's hand tracking. The game uses Python, OpenCV, and MediaPipe to detect hand gestures and interact with the game environment.
 
-This project implements a simple hand gesture recognition game using Python and the Mediapipe library. The game involves two players who take turns making hand gestures, and the gestures are interpreted to determine the score. The game has multiple rounds, and players can advance to higher levels based on their scores.
+## Project Overview
 
-*Prerequisites*
+This project implements the classic **Flappy Bird** game, where the user controls the bird's flapping motion by raising their hand. The gesture recognition system is powered by **MediaPipe**, which processes real-time camera frames to detect the position of the user's hand. The bird moves based on the detected gesture, and the goal is to pass through pipes without colliding.
 
-Before running the code, make sure you have the following installed:
+## Features:
+- **Hand Gesture Control**: Uses **MediaPipe** for real-time hand tracking and interprets hand gestures to control the bird.
+- **Game Mechanics**: Includes gravity, bird flap motion, pipe spawning, and score tracking.
+- **Scoring System**: The score is based on the number of pipes the bird successfully passes.
+- **Real-Time Gameplay**: OpenCV is used for rendering the game window and capturing the Webcam feed.
 
-1.Python (3.6 or later)
+## Technical Details
 
-2.OpenCV (pip install opencv-python)
+### Core Components:
+1. **Game Environment**: 
+   - Handles the game's environment, bird movement, pipe spawning, and collision detection.
+   - The `GameEnvironment` class manages game logic, including gravity, pipe movement, and scoring.
+   
+2. **Gesture Interpreter**:
+   - Interprets hand gestures and translates them into game actions. For example, the hand position (above or below a threshold) is mapped to the "FLAP" action.
+   
+3. **Hand Recognition**:
+   - Uses **MediaPipe**'s hand tracking model to detect the position of the index finger from the webcam feed. This position is then used to interpret gestures.
+   
+4. **Scoring System**:
+   - Tracks the player's score based on how many pipes the bird passes.
 
-3.Mediapipe (pip install mediapipe)
+### How It Works:
+1. **Game Initialization**:
+   - The game window is created using OpenCV, and modules are initialized for game logic, gesture interpretation, hand recognition, and scoring.
+   
+2. **Hand Gesture Detection**:
+   - The camera captures frames, and MediaPipe processes these frames to detect the index finger's position.
+   
+3. **Gesture Interpretation**:
+   - Based on the detected hand position, the `GestureInterpreter` decides whether the player is making the "FLAP" gesture or "NO ACTION".
+   
+4. **Game Loop**:
+   - The game runs in a loop, where each frame updates the bird's position, moves the pipes, checks for collisions, and updates the score.
+   
+5. **Collision Detection**:
+   - The game checks if the bird collides with pipes or the ground using the `check_collision` function.
+   
+6. **Scoring**:
+   - The score is updated based on the number of pipes the bird passes.
 
-*File Structure*
+### Libraries Used:
+- **OpenCV**: For handling the video capture, rendering the game window, and processing the frames.
+- **MediaPipe**: For real-time hand tracking to detect hand gestures.
+- **NumPy**: For handling arrays and mathematical operations in the game logic.
 
-The project is organized into the following modules:
+### Dependencies:
 
-A)HandRecognition.py: Manages hand detection using the Mediapipe library. It captures video from the camera, detects hand landmarks, and switches between players.
-
-B)GestureInterpreter.py: Interprets hand gestures and maps them to in-game actions. It calculates scores based on the similarity of hand gestures between players.
-
-C)GameEnvironment.py: Controls the game environment, including displaying the game interface, updating game elements, playing the game, restarting the game, and handling game over scenarios.
-
-D)ScoringSystem.py: Implements the scoring logic. It calculates scores based on the similarity of hand gestures and defines the rules for advancing to higher levels.
-
-E)main.py: The main script that orchestrates the interaction between the modules. It initializes instances of the classes defined in the other modules and runs the main game loop.
-
-*How to Run*
-
-1.Clone the repository to your local machine
-
-2.Navigate to the project directory
-
-3.Run the main script
-
-4.Ensure that your camera is properly connected and accessible.
-
-*Gameplay*
-
-1.The game initializes with two players (Player 1 and Player 2).
-
-2.Players take turns making hand gestures in front of the camera.
-
-3.Hand gestures are detected and interpreted by the system.
-
-4.Scores are calculated based on the similarity of hand gestures.
-
-5.The game progresses through multiple rounds, and players can advance to higher levels.
-
-6.The game ends when a player reaches a predefined score threshold or after a specified number of rounds.
-
-*Troubleshooting*
-
-->If the camera is not working, check that it is properly connected and not in use by another application.
-
-->If there are issues with hand detection, ensure proper lighting conditions and experiment with hand positioning.
-
-->Check for any error messages in the console for additional troubleshooting.
-
-**Happy gaming!**
-
-
+```txt
+mediapipe==0.8.6
+opencv-python==4.5.3.56
+numpy==1.21.0
