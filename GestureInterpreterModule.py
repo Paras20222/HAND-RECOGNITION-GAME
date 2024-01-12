@@ -1,7 +1,7 @@
 class GestureInterpreter:
     def __init__(self):
         """
-        Initializes gesture interpretation parameters.
+        Initializes gesture interpretation parameter.
         """
         self.threshold = 0.5
     
