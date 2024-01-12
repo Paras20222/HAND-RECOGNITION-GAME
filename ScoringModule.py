@@ -13,6 +13,6 @@ class ScoringSystem:
     
     def get_score(self):
         """
-        Returns the current score.
+        Return the current score.
         """
         return self.score
