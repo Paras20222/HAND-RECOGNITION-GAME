@@ -5,7 +5,7 @@ import random
 class GameEnvironment:
     def __init__(self):
         """
-        Initializes the game environment, including window size, bird properties, gravity, pipes, and scoring.
+        Initializes the game environment, including window size, velocity, bird properties, gravity, pipes, and scoring.
         """
         self.width = 800
         self.height = 600
