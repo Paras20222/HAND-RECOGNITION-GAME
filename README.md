@@ -52,14 +52,6 @@ E)main.py: The main script that orchestrates the interaction between the modules
 
 6.The game ends when a player reaches a predefined score threshold or after a specified number of rounds.
 
-*Customization*
-
-->You can customize the game interface by modifying the display_interface method in GameEnvironment.py.
-
-->Adjust scoring parameters and game logic in the ScoringSystem.py file.
-
-->Experiment with different hand gestures and their interpretations in the GestureInterpreter.py file.
-
 *Troubleshooting*
 
 ->If the camera is not working, check that it is properly connected and not in use by another application.
