@@ -60,10 +60,6 @@ E)main.py: The main script that orchestrates the interaction between the modules
 
 ->Check for any error messages in the console for additional troubleshooting.
 
-*Contribution*
-
-Feel free to contribute to the project by opening issues, proposing new features, or submitting pull requests.
-
 **Happy gaming!**
 
 
