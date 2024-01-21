@@ -1,24 +1,49 @@
-class GestureInterpreter:
+class GameEnvironment:
     def __init__(self):
-        # Initialize gesture interpretation parameters
-        self.gesture_params = {
-            "matching_fingers_threshold": 5,
-            "points_per_matching_finger": 10,
-            "points_for_common_fingers": 5,
-            "points_for_different_fingers": 0
-        }
+        # Initialize game environment parameters
+        self.window_name = "Game Interface"
+        self.window_size = (800, 600)
+        self.current_round = 1
+        self.iterations = 9  # Initial number of iterations
 
-    def map_gesture_to_action(self, player1_gesture, player2_gesture):
+    def display_interface(self):
         
-        #Map detected hand gestures to in-game actions.
-        matching_fingers = sum(f1 == f2 for f1, f2 in zip(player1_gesture, player2_gesture))
+        #Displays the game interface using OpenCV.
+        # Create a blank image as the game interface
 
-        if matching_fingers == 5:
-            return "Same Fingers: 100 points"
-        else:
-            points_per_matching_finger = 10
+        game_interface = 255 * 0 + 0 * 255  # White background (modify based on your design)
 
-            if matching_fingers > 0:
-                return f"Matching Fingers: {matching_fingers * points_per_matching_finger} points"
-            else:
-                return "Different Fingers: 5 points for common fingers, 0 points for different fingers"
+        # Display the game interface window
+        cv2.imshow(self.window_name, game_interface)
+        cv2.waitKey(0)  # Wait for a key press to close the window
+
+    def update_game_elements(self, player1_gesture, player2_gesture):
+        
+        # Updates game elements based on detected hand gestures.
+        # Calculate score using ScoringSystem class
+        score = self.scoring_system.calculate_score(player1_gesture, player2_gesture)
+
+        print("Score:", score)
+        return score
+
+
+    def play_game(self):
+        
+        #Play the game for the current number of iterations.
+        
+        while self.current_round <= self.iterations:
+            print(f"Round {self.current_round} - Play Game")
+            # Add your game logic here
+
+            # For demonstration purposes, increment the round
+            self.current_round += 1
+
+    def restart_game(self):
+        
+        print("Game Restarted")
+        self.current_round = 1
+
+
+    def game_over(self, winner):
+       
+        print(f"GAME OVER! {winner} wins.")
