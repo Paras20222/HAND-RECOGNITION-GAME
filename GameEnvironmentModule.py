@@ -1,49 +1,62 @@
+import cv2
+import numpy as np
+import random
+
 class GameEnvironment:
     def __init__(self):
-        # Initialize game environment parameters
-        self.window_name = "Game Interface"
-        self.window_size = (800, 600)
-        self.current_round = 1
-        self.iterations = 9  # Initial number of iterations
+        """
+        Initializes the game environment, including window size, bird properties, gravity, pipes, and scoring.
+        """
+        self.width = 800
+        self.height = 600
+        self.bird_y = self.height // 2
+        self.velocity = 0
+        self.gravity = 1
+        self.flap_strength = -15
+        self.pipes = []
+        self.pipe_width = 80
+        self.pipe_gap = 200
+        self.pipe_speed = 5
+        self.score = 0
+        self.spawn_pipe()
+    
+    def spawn_pipe(self):
+        """
+        Spawns a new pipe at a random height.
+        """
+        pipe_height = random.randint(100, 400)
+        self.pipes.append([self.width, pipe_height])
 
-    def display_interface(self):
-        
-        #Displays the game interface using OpenCV.
-        # Create a blank image as the game interface
+    def update_pipes(self):
+        """
+        Moves pipes to the left and removes off-screen pipes while updating the score.
+        """
+        for pipe in self.pipes:
+            pipe[0] -= self.pipe_speed
+        if self.pipes and self.pipes[0][0] < -self.pipe_width:
+            self.pipes.pop(0)
+            self.spawn_pipe()
+            self.score += 1
 
-        game_interface = 255 * 0 + 0 * 255  # White background (modify based on your design)
+    def update_bird(self):
+        """
+        Updates the bird's position based on gravity and velocity.
+        """
+        self.velocity += self.gravity
+        self.bird_y += self.velocity
+        if self.bird_y < 0:
+            self.bird_y = 0
+            self.velocity = 0
 
-        # Display the game interface window
-        cv2.imshow(self.window_name, game_interface)
-        cv2.waitKey(0)  # Wait for a key press to close the window
+    def check_collision(self):
+        """
+        Checks if the bird has collided with the ground or pipes.
+        """
+        if self.bird_y > self.height:
+            return True
+        for pipe in self.pipes:
+            if pipe[0] < 100 < pipe[0] + self.pipe_width:
+                if self.bird_y < pipe[1] or self.bird_y > pipe[1] + self.pipe_gap:
+                    return True
+        return False
 
-    def update_game_elements(self, player1_gesture, player2_gesture):
-        
-        # Updates game elements based on detected hand gestures.
-        # Calculate score using ScoringSystem class
-        score = self.scoring_system.calculate_score(player1_gesture, player2_gesture)
-
-        print("Score:", score)
-        return score
-
-
-    def play_game(self):
-        
-        #Play the game for the current number of iterations.
-        
-        while self.current_round <= self.iterations:
-            print(f"Round {self.current_round} - Play Game")
-            # Add your game logic here
-
-            # For demonstration purposes, increment the round
-            self.current_round += 1
-
-    def restart_game(self):
-        
-        print("Game Restarted")
-        self.current_round = 1
-
-
-    def game_over(self, winner):
-       
-        print(f"GAME OVER! {winner} wins.")
